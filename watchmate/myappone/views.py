@@ -4,10 +4,12 @@ from django.http import HttpResponse, JsonResponse
 
 # Create your views here.
 
+
 # ----------------------------------------------------------------------
 # def movie_list(request):
 #     movies = Movie.objects.all()
 #     return HttpResponse(movies.values())
+
 
 # ----------------------------------------------------------------------
 def movie_list(request):
@@ -15,6 +17,19 @@ def movie_list(request):
 
     data = {
         'movies':list(movies.values())
+    }
+
+    return JsonResponse(data)
+
+
+# ----------------------------------------------------------------------
+def movie_details(request, pk):
+    movie = Movie.objects.get(pk=pk)
+
+    data = {
+        'movie':movie.name,
+        'description':movie.description,
+        'active':movie.active
     }
 
     return JsonResponse(data)
